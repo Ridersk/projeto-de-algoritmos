@@ -107,7 +107,7 @@ class Board(object):
                 if not edge.visited:
                     enqueue(edge)
             # time.sleep(0.1)
-            clock.tick(16)
+            clock.tick(60)
 
 
 def main():
