@@ -15,12 +15,9 @@ def main():
     graph.create_relationship(node[7], [node[8]])
     graph.create_relationship(node[8], [node[6]])
 
-    # graph.topological_order(node[2])
-    print(node[3].get_value_neighbors())
-    graph.reverse(graph.nodes)
-    print(node[3].get_value_neighbors())
+    graph.topological_order(node[2])
 
-    # print(list(map(lambda x: x.value, graph.nodes)))
+    # print(list(map(lambda node: node.value, graph.nodes)))
     # print(node[2].get_value_neighbors())
 
 
