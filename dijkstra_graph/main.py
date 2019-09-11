@@ -17,21 +17,7 @@ def main():
         nodes[6], [(nodes[3], 18), (nodes[5], 30), (nodes[7], 5)])
     graph.create_relationship(nodes[7], [(nodes[5], 20), (nodes[8], 44)])
 
-    graph.dijkstra_algorithm(nodes[1], nodes[8])
-
-    # heap = HeapDijkstra(
-    #     list(map(lambda node: [random.randint(0, 10), node, node], nodes)))
-    # heap.show_nodes()
-
-    # heap.remove_root()
-    #
-
-    # heap.remove_root()
-    # heap.show_nodes()
-
-    # print("update node")
-    # heap.node_lenght_increment(heap.nodes[1], nodes[1], 15)
-    # heap.show_nodes()
+    graph.dijkstra_algorithm(nodes[7], nodes[8])
 
 
 main()

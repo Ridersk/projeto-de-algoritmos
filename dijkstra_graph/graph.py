@@ -79,36 +79,38 @@ class Graph(object):
         '''
 
         for neighbor in neighbors:
-            edge = self.__make_edge(node, neighbor)
-            node.add_neighbor(neighbor, edge)
-            # neighbor.add_neighbor(node, edge)
+            edge = self.__make_edge(node, neighbor[0], neighbor[1])
+
+            node.add_neighbor(neighbor[0], edge)
             self.edges.append(edge)
+
+        # for neighbor in node.neighbors:
+        #     print(neighbor.edge.value)
 
         return neighbors
 
-    def __make_edge(self, node, neighbor):
+    def __make_edge(self, node, neighbor, length):
         edge = Edge()
         edge.node_start = node
-        edge.node_end = neighbor[0]
-        edge.length = neighbor[1]
+        edge.node_end = neighbor
+        edge.length = length
         return edge
 
-    def __dijkstra_neighbors(self, node):
-        for neighbor in node.neighbors:
-            if not neighbor.node.visited and neighbor.node.active:
-                '''
-                '''
+    def __update_edge_neighbors(self, heap_node, heap):
+        '''
+            estrutura heap_node: (lengh, dest_node, origin_node)
+        '''
+        for neighbor in heap_node[1].neighbors:
+            path_length = heap_node[0] + neighbor.edge.length
+            heap.update_node_lenght(neighbor.node, heap_node[1], path_length)
 
-    def clear_visited_nodes(self, nodes):
-        for node in nodes:
-            node.visited = False
-        return nodes
-
-    def start_heap(self, graph_nodes):
-        heap_nodes = [[10, graph_nodes[0], None]]
-        heap_nodes.append([3, graph_nodes[1], None])
-        for index in range(2, len(self.nodes)):
-            heap_nodes.append([None, graph_nodes[index], None])
+    def start_heap(self, first_node, graph_nodes):
+        heap_nodes = []
+        for node in graph_nodes:
+            if node != first_node:
+                heap_nodes.append([None, node, None])
+            else:
+                heap_nodes.append([0, node, None])
 
         heap = HeapDijkstra(heap_nodes)
         return heap
@@ -124,14 +126,18 @@ class Graph(object):
         dest_node = graph_nodes[end_node.value]
 
         # heap para priorizar o menor caminho
-        heap = self.start_heap(graph_nodes)
-        heap.show_nodes()
+        heap = self.start_heap(first_node, graph_nodes)
+        # heap.show_nodes()
 
-        node = heap.get_root_dest_node()
-        heap.show_nodes()
+        print("Caminho:")
+        while True:
+            heap_root = heap.get_root()
+            print(heap_root[1].value, end=", ")
+            if heap_root[1] == dest_node:
+                break
+            self.__update_edge_neighbors(heap_root, heap)
+            # heap.show_nodes()
+        print()
 
-        node = heap.get_root_dest_node()
-        heap.show_nodes()
-
-        node = heap.get_root_dest_node()
-        heap.show_nodes()
+        print("shortest path: distance %s, origin %s -> end %s" %
+              (heap_root[0], heap_root[2].value, heap_root[1].value))

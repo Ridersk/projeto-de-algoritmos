@@ -34,21 +34,25 @@ class HeapDijkstra(object):
         self.nodes.append(node)
         self.__shift_up(node, position_index)
 
-    def node_lenght_increment(self, node, new_origin_node, lenght_increment):
+    def update_node_lenght(self, node, new_origin_node, new_lenght):
+        '''
+            atualiza o custo do caminho ate o node se for menor que o custo atual
+            arg node eh o dest_node
+        '''
         for index in range(1, len(self.nodes)):
-            if self.nodes[index] == node:
-                self.nodes[index][0] += lenght_increment
-                self.nodes[index][2] = new_origin_node
-
-                self.__shift_down(node, index)
+            if self.nodes[index][1] == node:
+                if self.nodes[index][0] == None or new_lenght < self.nodes[index][0]:
+                    self.nodes[index][0] = new_lenght
+                    self.nodes[index][2] = new_origin_node
+                    self.__shift_up(self.nodes[index], index)
                 return
 
-    def get_root_dest_node(self):
+    def get_root(self):
         '''
             return destination_root
         '''
         node = self.remove_root()
-        return node[1]
+        return node
 
     def remove_root(self):
         position_last = len(self.nodes) - 1
@@ -72,8 +76,8 @@ class HeapDijkstra(object):
         if ((parent_node[0] == None and node[0] != None) or
                 (parent_node[0] != None and node[0] != None and node[0] < parent_node[0])):
 
-            print("swap: ", node[0], ",", node[1].value,
-                  "<->", parent_node[0], ",", parent_node[1].value)
+            # print("swap: ", node[0], ",", node[1].value,
+            #       "<->", parent_node[0], ",", parent_node[1].value)
             self.nodes[position_parent] = node
             self.nodes[position_node] = parent_node
 
