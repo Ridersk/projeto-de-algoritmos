@@ -19,19 +19,19 @@ def main():
 
     graph.dijkstra_algorithm(nodes[1], nodes[8])
 
-    heap = HeapDijkstra(
-        list(map(lambda node: [random.randint(0, 10), node, node], nodes)))
-    heap.show_nodes()
+    # heap = HeapDijkstra(
+    #     list(map(lambda node: [random.randint(0, 10), node, node], nodes)))
+    # heap.show_nodes()
 
-    heap.remove_root()
-    heap.show_nodes()
+    # heap.remove_root()
+    #
 
-    heap.remove_root()
-    heap.show_nodes()
+    # heap.remove_root()
+    # heap.show_nodes()
 
-    print("update node")
-    heap.node_lenght_increment(heap.nodes[1], nodes[1], 15)
-    heap.show_nodes()
+    # print("update node")
+    # heap.node_lenght_increment(heap.nodes[1], nodes[1], 15)
+    # heap.show_nodes()
 
 
 main()

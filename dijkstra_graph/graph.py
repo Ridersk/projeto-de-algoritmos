@@ -57,6 +57,7 @@ class Graph(object):
 
     def __init__(self):
         self.nodes = []
+        self.heap_nodes = HeapDijkstra()
         self.edges = []
         self.array_nodes_posX = []
         self.array_nodes_posY = []
@@ -73,6 +74,9 @@ class Graph(object):
         return nodes
 
     def create_relationship(self, node, neighbors: list):
+        '''
+            structure of entrance neighbor: (neighbor_node, edge_lenght)
+        '''
 
         for neighbor in neighbors:
             edge = self.__make_edge(node, neighbor)
@@ -100,6 +104,15 @@ class Graph(object):
             node.visited = False
         return nodes
 
+    def start_heap(self, graph_nodes):
+        heap_nodes = [[10, graph_nodes[0], None]]
+        heap_nodes.append([3, graph_nodes[1], None])
+        for index in range(2, len(self.nodes)):
+            heap_nodes.append([None, graph_nodes[index], None])
+
+        heap = HeapDijkstra(heap_nodes)
+        return heap
+
     def dijkstra_algorithm(self, initial_node, end_node):
         '''
             Algoritmo dijkstra de menor caminho em grafos com pesos
@@ -108,3 +121,17 @@ class Graph(object):
         # proteger a estrutura original
         graph_nodes = deepcopy(self.nodes)
         first_node = graph_nodes[initial_node.value]
+        dest_node = graph_nodes[end_node.value]
+
+        # heap para priorizar o menor caminho
+        heap = self.start_heap(graph_nodes)
+        heap.show_nodes()
+
+        node = heap.get_root_dest_node()
+        heap.show_nodes()
+
+        node = heap.get_root_dest_node()
+        heap.show_nodes()
+
+        node = heap.get_root_dest_node()
+        heap.show_nodes()
