@@ -1,5 +1,7 @@
 from copy import deepcopy
 import random
+import math
+from heap import HeapDijkstra
 
 
 class Node(object):
@@ -87,39 +89,11 @@ class Graph(object):
         edge.length = neighbor[1]
         return edge
 
-    def dijkstra_bfs(self, initial_node):
-        queue = []
-
-        def enqueue(node):
-            node.visited = True
-            queue.append(node)
-
-        def dequeue():
-            queue[0].active = False
-            queue[0].topological_count = 0
-            return queue.pop(0)
-
-        if initial_node.active:
-            enqueue(initial_node)
-
-        while len(queue) > 0:
-            current_node = dequeue()
-            print(current_node.value)
-            for neighbor in current_node.neighbors:
-                if not neighbor.node.visited and neighbor.node.active:
-                    enqueue(neighbor.node)
-
-    def reverse(self, nodes):
-        for node in nodes:
-            while len(node.neighbors) > 0:
-                neighbor = node.neighbors[0]
-                if not neighbor.edge.isReverse:
-                    neighbor.node.add_neighbor(node, neighbor.edge)
-                    neighbor.edge.isReverse = True
-                    node.remove_neighbor(neighbor)
-                else:
-                    break
-        return nodes
+    def __dijkstra_neighbors(self, node):
+        for neighbor in node.neighbors:
+            if not neighbor.node.visited and neighbor.node.active:
+                '''
+                '''
 
     def clear_visited_nodes(self, nodes):
         for node in nodes:
