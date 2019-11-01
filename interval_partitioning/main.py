@@ -41,10 +41,13 @@ class ClassRoom:
                         lecture.end_min() > start_min) or
                     (lecture.start_min() < end_min) and
                     lecture.end_min() >= end_min):
-                # print("shock between %s - %s" %
-                #       (lecture.name, unallocated_lecture.name))
                 return False
         return True
+
+    def show_lectures(self):
+        for lecture in self.lectures:
+            print(lecture.name, end=", ")
+        print("\n")
 
 
 # representando horas como float
@@ -58,7 +61,7 @@ lectures = [
     Lecture('g', 13, 14.30),
     Lecture('h', 14, 16.30),
     Lecture('i', 15, 16.30),
-    Lecture('j', 15, 16.30)
+    Lecture('j', 15, 16.30),
 ]
 
 # classroom working shedule 8:0 - 18:0
@@ -91,10 +94,11 @@ def interval_partitioning():
 def main():
     print([lecture.name for lecture in lectures])
 
-    # classTest = ClassRoom('Sala 01')
-    # classTest.add_lecture(lectures[0])
-    # print(classTest.check_hour_free(7000, 7999))
     print(interval_partitioning())
+
+    print("Turmas: \n")
+    for classroom in classrooms:
+        classroom.show_lectures()
 
 
 main()
