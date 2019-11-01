@@ -180,7 +180,7 @@ class Graph(object):
 
         # primeira etapa: dfs
         last_node = self.topological_dfs(first_node, graph_nodes)
-        # print("last: ", last_node.value)
+        print("last: ", last_node.value)
 
         # segunda etapa: arvore inversa
         graph_nodes = self.reverse(graph_nodes)
