@@ -63,10 +63,7 @@ class MergeSort:
         return sortList[begin: begin+1]
 
 
-points = []
-
-
-def create_point(qtt=0):
+def create_point(qtt=0, points=[]):
 
     while(True):
         x = randint(0, qtt)
@@ -88,38 +85,7 @@ def euclideanDistance(point1, point2): return math.sqrt(
     abs(point1.x - point2.x)**2 + abs(point1.y - point2.y)**2)
 
 
-def main():
-    qtt = 100
-    for i in range(10):
-        points.append(create_point(qtt))
-
-    sortedList = []
-    sort = MergeSort(points)
-
-    sortedList = sort.sort_in_x()
-
-    print("------------------------ Pontos Gerados ---------------------")
-    for point in sortedList:
-        print("{", point.x, ", ", point.y, "}, ", end="")
-    print()
-
-    closest = ClosestPairOfPointAlg(sortedList)
-
-    result_orderedY = closest.search()
-
-    print("------------------------ Ordenacao Y ---------------------")
-    for point in result_orderedY.list:
-        print("{", point.x, ", ", point.y, "}, ", end="")
-    print()
-
-    print("------------------------ Par de Pontos Mais Próximos ---------------------")
-    closest = result_orderedY.closestPoints
-    point1 = closest.point1
-    point2 = closest.point2
-    ditance = closest.distance
-    print("{", point1.x, ", ", point1.y, "} , {", point2.x,
-          ", ", point2.y, "} = ", closest.distance)
-
+def bruteForce(sortedList):
     print("------------------------ Prova Bruta ---------------------")
     closestPairBruteForce = ClosestPoint(None, None, math.inf)
     for i in range(0, len(sortedList)):
@@ -137,6 +103,57 @@ def main():
     ditance = closest.distance
     print("{", point1.x, ", ", point1.y, "} , {", point2.x,
           ", ", point2.y, "} = ", closest.distance)
+
+    return closest
+
+
+def test(loops):
+    for i in range(loops):
+        points = []
+
+        qtt = 1000
+        for i in range(100):
+            points.append(create_point(qtt, points))
+
+        sortedList = []
+        sort = MergeSort(points)
+
+        sortedList = sort.sort_in_x()
+
+        print("------------------------ Pontos Gerados ---------------------")
+        for point in sortedList:
+            print("{", point.x, ", ", point.y, "}, ", end="")
+        print()
+
+        closest = ClosestPairOfPointAlg(sortedList)
+
+        result_orderedY = closest.search()
+
+        print("------------------------ Ordenacao Y ---------------------")
+        for point in result_orderedY.list:
+            print("{", point.x, ", ", point.y, "}, ", end="")
+        print()
+
+        print("------------------------ Par de Pontos Mais Próximos ---------------------")
+        closest = result_orderedY.closestPoints
+        point1 = closest.point1
+        point2 = closest.point2
+        ditance = closest.distance
+        print("{", point1.x, ", ", point1.y, "} , {", point2.x,
+              ", ", point2.y, "} = ", closest.distance)
+
+        closestBrute = bruteForce(sortedList)
+
+        if closest.distance != closestBrute.distance:
+            print("Diferentes")
+            print("Test: ", i)
+            return
+
+    print("\n\n-------------------------- Test OK -----------------------------")
+
+
+def main():
+    test(50000)
 
 
 main()
