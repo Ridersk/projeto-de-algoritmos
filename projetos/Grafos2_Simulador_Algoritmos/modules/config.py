@@ -1,0 +1,18 @@
+SCREEN_WIDTH = 720
+SCREEN_HEIGHT = 480
+
+BLACK = (0, 0, 0)
+YELLOW = (255, 166, 0)
+LIGHT_BLUE = (40, 120, 250)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+LIGHT_RED = (255, 140, 102)
+BLUE = (0, 0, 250)
+WHITE = (255, 255, 255)
+LIGHT_GRAY = (200, 200, 200)
+DARK_GRAY = (50, 50, 50)
+
+# do not change NODE_RADIUS_DEFAULT, it means the value default for calculate nodes proportion
+NODE_RADIUS_DEFAULT = 20
+NODE_RADIUS = 30
+MIN_DISTANCE_BETWEEN_NODES = NODE_RADIUS * 3
